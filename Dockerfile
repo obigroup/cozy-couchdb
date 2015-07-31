@@ -40,12 +40,13 @@ echo $COUCH_PASSWD >> /etc/cozy/couchdb.login \
 # Configure Supervisor.
 ADD supervisor/supervisord.conf /etc/supervisord.conf
 RUN mkdir -p /var/log/supervisor \
-&& chmod 774 /var/log/supervisor \
-&& /usr/local/bin/supervisord -c /etc/supervisord.conf
+&& chmod 774 /var/log/supervisor
 
 # Import Supervisor configuration files.
 ADD supervisor/couchdb.conf /etc/supervisor/conf.d/couchdb.conf
 RUN chmod 0644 /etc/supervisor/conf.d/*
+
+# RUN /usr/local/bin/supervisord -c /etc/supervisord.conf
 
 #Add file for backup/restore
 ADD sh/backup.sh /home/backup.sh
